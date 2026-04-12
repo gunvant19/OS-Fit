@@ -4,8 +4,8 @@ const membershipPlanController = require('../controllers/membershipPlanControlle
 const { authenticateToken, authorizeRole } = require('../middlewares/authMiddleware');
 const validate = require('../middlewares/validate');
 
-// Public to all authenticated users
-router.get('/', authenticateToken, membershipPlanController.getAllPlans);
+// Public - no auth required so plans show for everyone (visitors, users, admins)
+router.get('/', membershipPlanController.getAllPlans);
 
 // Admin only routes
 router.post('/', authenticateToken, authorizeRole('admin'), validate(membershipPlanController.schemas.planSchema), membershipPlanController.createPlan);

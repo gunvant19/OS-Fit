@@ -20,9 +20,8 @@ export default function Trainers() {
 
   const fetchTrainers = async () => {
     try {
-      const response = await fetch(`${API_URL}/trainers`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {}
-      });
+      // Public API - no auth required, shows real data for everyone
+      const response = await fetch(`${API_URL}/trainers`);
       if (response.ok) {
         const data = await response.json();
         setTrainers(Array.isArray(data) ? data : data.trainers || []);

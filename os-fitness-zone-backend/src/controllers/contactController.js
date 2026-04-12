@@ -21,7 +21,7 @@ const sendContactEmail = async (req, res) => {
 
     const mailOptions = {
       from: `"${name}" <${email}>`,
-      to: process.env.EMAIL_USER, // Send to admin's email
+      to: 'gunvantpatil2335@gmail.com', // Recipient email address
       subject: `OS Fitness - New Inquiry: ${subject}`,
       text: `
         Name: ${name}

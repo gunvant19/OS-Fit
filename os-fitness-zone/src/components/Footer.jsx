@@ -91,15 +91,22 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <span className="material-symbols-outlined text-primary text-[20px] shrink-0">call</span>
-                <a href="tel:+15551234567" className="text-slate-600 text-sm font-medium hover:text-primary transition-colors">+1 (555) 123-4567</a>
+                <div className="flex flex-col gap-1">
+                  <a href="tel:9011756935" className="text-slate-600 text-sm font-medium hover:text-primary transition-colors">9011756935</a>
+                  <a href="tel:9209092417" className="text-slate-600 text-sm font-medium hover:text-primary transition-colors">9209092417</a>
+                  <a href="tel:8888634345" className="text-slate-600 text-sm font-medium hover:text-primary transition-colors">8888634345</a>
+                </div>
               </li>
               <li className="flex gap-3">
                 <span className="material-symbols-outlined text-primary text-[20px] shrink-0">mail</span>
-                <a href="mailto:hello@osfitness.com" className="text-slate-600 text-sm font-medium hover:text-primary transition-colors">hello@osfitness.com</a>
+                <a href="mailto:shelarvishal892@gmail.com" className="text-slate-600 text-sm font-medium hover:text-primary transition-colors">shelarvishal892@gmail.com</a>
               </li>
               <li className="flex gap-3">
                 <span className="material-symbols-outlined text-primary text-[20px] shrink-0">schedule</span>
-                <span className="text-slate-600 text-sm font-medium">Mon – Sun: 6:00 AM – 9:30 PM</span>
+                <div className="flex flex-col gap-1">
+                  <span className="text-slate-600 text-sm font-medium">Mon – Sat: 6:00 AM – 11:00 AM, 4:00 PM – 9:30 PM</span>
+                  <span className="text-slate-600 text-sm font-medium">Sunday: Closed</span>
+                </div>
               </li>
             </ul>
           </div>

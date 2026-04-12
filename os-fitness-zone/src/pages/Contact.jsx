@@ -83,7 +83,11 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="text-lg font-black text-slate-900 mb-2">Call Us</h3>
-                <p className="text-slate-600 font-medium leading-relaxed">Main: +1 (555) 123-4567<br/>Support: +1 (555) 987-6543</p>
+                <p className="text-slate-600 font-medium leading-relaxed">
+                  9011756935<br/>
+                  9209092417<br/>
+                  8888634345
+                </p>
               </div>
             </div>
 
@@ -93,7 +97,7 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="text-lg font-black text-slate-900 mb-2">Email Us</h3>
-                <p className="text-slate-600 font-medium leading-relaxed">hello@osfitness.com<br/>careers@osfitness.com</p>
+                <p className="text-slate-600 font-medium leading-relaxed">shelarvishal892@gmail.com</p>
               </div>
             </div>
           </div>

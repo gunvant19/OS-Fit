@@ -19,55 +19,25 @@ export default function MembershipPlans() {
   });
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    const fetchPlans = async () => {
-      try {
-        // First try to fetch from backend
-        const token = localStorage.getItem('jwt_token');
-        const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
-        
-        const response = await fetch(`${API_URL}/membership-plans`, { headers });
-        if (response.ok) {
-          const data = await response.json();
-          if (data.length > 0) {
-            setPlans(data);
-            setLoading(false);
-            return;
-          }
-        }
-        throw new Error('Fallback to mock data');
-      } catch (err) {
-        // Fallback to beautiful mock data if backend fails or is empty
-        setPlans([
-          {
-            _id: '1',
-            name: 'Basic Pass',
-            price: 1499,
-            duration: 'monthly',
-            features: ['Access to gym equipment', 'Locker room access', 'Free WiFi', '1 Group class/month'],
-            isPopular: false
-          },
-          {
-            _id: '2',
-            name: 'Pro Athlete',
-            price: 2999,
-            duration: 'monthly',
-            features: ['All Basic features', 'Unlimited group classes', '1 PT session/month', 'Sauna access', 'Nutrition guide'],
-            isPopular: true
-          },
-          {
-            _id: '3',
-            name: 'Elite VIP',
-            price: 5999,
-            duration: 'monthly',
-            features: ['All Pro features', '4 PT sessions/month', 'Dedicated locker', 'Monthly body composition scan', 'Guest passes (2/month)'],
-            isPopular: false
-          }
-        ]);
-        setLoading(false);
+  const fetchPlans = async () => {
+    try {
+      // Public API - no auth required, shows real data for everyone
+      const response = await fetch(`${API_URL}/membership-plans`);
+      if (response.ok) {
+        const data = await response.json();
+        setPlans(data);
+      } else {
+        setError('Failed to load membership plans');
       }
-    };
+    } catch (err) {
+      console.error('Fetch error:', err);
+      setError('Unable to connect to server');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchPlans();
   }, []);
 
@@ -100,9 +70,7 @@ export default function MembershipPlans() {
       if (res.ok) {
         setMessage('Plan deleted successfully');
         setTimeout(() => setMessage(''), 3000);
-        // Refresh plans
-        const response = await fetch(`${API_URL}/membership-plans`);
-        if (response.ok) setPlans(await response.json());
+        fetchPlans();
       }
     } catch (err) {
       setMessage('Error deleting plan');
@@ -136,11 +104,7 @@ export default function MembershipPlans() {
         setMessage(editingPlan ? 'Plan updated!' : 'Plan added!');
         setTimeout(() => setMessage(''), 3000);
         setShowModal(false);
-        // Refresh plans
-        const response = await fetch(`${API_URL}/membership-plans`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (response.ok) setPlans(await response.json());
+        fetchPlans();
       } else {
         const data = await res.json();
         setMessage(data.message || 'Operation failed');
@@ -264,15 +228,24 @@ export default function MembershipPlans() {
         <div className="space-y-6">
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Can I cancel my membership at any time?</h3>
-            <p className="text-slate-600">Yes, our monthly plans are completely flexible. You can cancel or pause your membership at any time directly from your user dashboard with no cancellation fees.</p>
+            <p className="text-slate-600">No, once a membership plan is confirmed and payment is successfully completed, it is non-cancellable and non-refundable.</p>
           </div>
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Are group classes included?</h3>
-            <p className="text-slate-600">Basic plans include 1 complimentary class per month. Pro and Elite plans come with unlimited access to all group classes on the schedule.</p>
-          </div>
+
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
             <h3 className="text-lg font-bold text-slate-900 mb-2">Is there an initiation fee?</h3>
             <p className="text-slate-600">No! We believe in 100% transparent pricing. The price you see is the price you pay today to get started instantly.</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">Will I also get a diet plan that is aligned with my workout?</h3>
+            <p className="text-slate-600">You will need to approach the gym team to understand if they have a nutritionist on board who can help you with this.</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">What kind of workouts and fitness regimens should I be doing at this gym?</h3>
+            <p className="text-slate-600">Your gym trainer will assess your body structure, fitness, lifestyle, diet, and goals to arrive at a conclusion as to which workout regimen will suit you best.</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">What is the right age to join a gym?</h3>
+            <p className="text-slate-600">Your body continues to grow at a very high pace up until your teen years. Then, by 17 or 18, your body becomes strong enough to withstand the effects of vigorous workouts. However, all this will still be influenced by individual health state, agility, and prior experience. As a general rule, in Nashik is open to people between.</p>
           </div>
         </div>
       </section>

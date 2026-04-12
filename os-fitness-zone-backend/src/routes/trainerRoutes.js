@@ -4,8 +4,8 @@ const trainerController = require('../controllers/trainerController');
 const { authenticateToken, authorizeRole } = require('../middlewares/authMiddleware');
 const validate = require('../middlewares/validate');
 
-// Public to all authenticated users
-router.get('/', authenticateToken, trainerController.getAllTrainers);
+// Public - no auth required so trainers show for everyone (visitors, users, admins)
+router.get('/', trainerController.getAllTrainers);
 
 // Admin only routes
 router.post('/', authenticateToken, authorizeRole('admin'), validate(trainerController.schemas.trainerSchema), trainerController.createTrainer);
