@@ -42,7 +42,7 @@ export default function Auth() {
         setError('Registration successful! Please login with your new credentials.');
       }
     } catch (err) {
-      console.error('Auth Error:', err);
+      console.log('Auth Error:', err);
       setError(err.message === 'Failed to fetch'
         ? 'Could not connect to the server. Please ensure the backend is running.'
         : err.message);
